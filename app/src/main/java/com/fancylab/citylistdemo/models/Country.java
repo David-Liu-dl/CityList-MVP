@@ -11,9 +11,21 @@ import java.util.List;
  */
 
 public class Country {
+
+    @Expose
+    private String title = "";
+
     @Expose
     @SerializedName("rows")
     private List<City> cities;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public List<City> getCities() {
         return cities;
