@@ -1,8 +1,6 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
-import com.fancylab.citylistdemo.ui.base.BasePresenter;
 import com.fancylab.citylistdemo.ui.base.BasePresenterImp;
-import com.fancylab.citylistdemo.ui.base.BaseViewModel;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
 import rx.subscriptions.CompositeSubscription;

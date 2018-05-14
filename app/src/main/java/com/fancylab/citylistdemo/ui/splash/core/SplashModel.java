@@ -1,6 +1,6 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
-import com.fancylab.citylistdemo.ui.base.BaseViewModel;
+import com.fancylab.citylistdemo.ui.base.BaseModel;
 import com.fancylab.citylistdemo.ui.splash.SplashActivity;
 import com.fancylab.citylistdemo.utils.NetworkUtils;
 
@@ -11,7 +11,7 @@ import rx.Observable;
  * lyhmelbourne@gmail.com
  */
 
-public class SplashModel implements BaseViewModel {
+public class SplashModel implements BaseModel {
 
     private SplashActivity splashContext;
 

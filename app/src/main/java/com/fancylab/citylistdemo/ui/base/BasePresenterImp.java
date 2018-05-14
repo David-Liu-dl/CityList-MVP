@@ -10,11 +10,11 @@ import rx.subscriptions.CompositeSubscription;
  */
 
 public class BasePresenterImp implements BasePresenter {
-    protected BaseViewModel viewModel;
+    protected BaseModel viewModel;
     protected RxScheduler rxSchedulers;
     protected CompositeSubscription subscriptions;
 
-    public BasePresenterImp(BaseViewModel viewModel, RxScheduler rxSchedulers, CompositeSubscription subscriptions) {
+    public BasePresenterImp(BaseModel viewModel, RxScheduler rxSchedulers, CompositeSubscription subscriptions) {
         this.viewModel = viewModel;
         this.rxSchedulers = rxSchedulers;
         this.subscriptions = subscriptions;

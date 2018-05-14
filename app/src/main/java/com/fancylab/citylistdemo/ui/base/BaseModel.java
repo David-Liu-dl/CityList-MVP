@@ -5,6 +5,6 @@ package com.fancylab.citylistdemo.ui.base;
  * lyhmelbourne@gmail.com
  */
 
-public interface BaseViewModel {
+public interface BaseModel {
     void clear();
 }
