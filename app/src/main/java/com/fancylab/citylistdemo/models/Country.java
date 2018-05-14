@@ -3,6 +3,7 @@ package com.fancylab.citylistdemo.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * lyhmelbourne@gmail.com
  */
 
-public class Country {
+public class Country implements Serializable{
 
     @Expose
     private String title = "";
