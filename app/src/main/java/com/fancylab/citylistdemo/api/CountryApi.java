@@ -12,7 +12,7 @@ import rx.Observable;
  */
 
 public interface CountryApi {
-    
-    @GET(C.remote.HOST + "/s/2iodh4vg0eortkl/facts.json")
+
+    @GET("s/2iodh4vg0eortkl/facts.json")
     Observable<Country> getCountry();
 }
