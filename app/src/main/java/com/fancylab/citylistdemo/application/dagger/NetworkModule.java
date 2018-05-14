@@ -1,6 +1,10 @@
 package com.fancylab.citylistdemo.application.dagger;
 
+import android.content.Context;
+
 import com.fancylab.citylistdemo.utils.rx.AppRxSchedulers;
+
+import java.io.File;
 
 import dagger.Module;
 import dagger.Provides;
@@ -44,5 +48,17 @@ public class NetworkModule {
     @Provides
     GsonConverterFactory provideGsonClient() {
         return GsonConverterFactory.create();
+    }
+
+    @AppScope
+    @Provides
+    Cache provideCache(File file) {
+        return new Cache(file, 10 * 10 * 1000);
+    }
+
+    @AppScope
+    @Provides
+    File provideCacheFile(Context context) {
+        return context.getFilesDir();
     }
 }

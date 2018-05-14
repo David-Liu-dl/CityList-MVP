@@ -18,4 +18,5 @@ public class RxModule {
     RxScheduler provideRxSchedulers() {
         return new AppRxSchedulers();
     }
+
 }
