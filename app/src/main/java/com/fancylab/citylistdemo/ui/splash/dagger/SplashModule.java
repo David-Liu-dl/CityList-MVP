@@ -20,9 +20,9 @@ public class SplashModule {
 
     @SplashScope
     @Provides
-    SplashPresenter providePresenter(RxScheduler schedulers, SplashModel model) {
+    SplashPresenter providePresenter(RxScheduler schedulers, SplashView view, SplashModel model) {
         CompositeSubscription compositeSubscription = new CompositeSubscription();
-        return new SplashPresenter(model, schedulers, compositeSubscription);
+        return new SplashPresenter(view, model, schedulers, compositeSubscription);
     }
 
     @SplashScope

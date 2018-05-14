@@ -19,7 +19,8 @@ public class SplashModel implements BaseModel {
         this.splashContext = splashContext;
     }
 
-    Observable<Boolean> isNetworkAvailable() {
+    @Override
+    public Observable<Boolean> isNetworkAvailable() {
         return NetworkUtils.isNetworkAvailableObservable(splashContext);
     }
 

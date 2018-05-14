@@ -12,11 +12,13 @@ import rx.subscriptions.CompositeSubscription;
 
 public class SplashPresenter extends BasePresenterImp {
 
-    private SplashModel viewModel;
+    private SplashModel model;
+    private SplashView view;
 
-    public SplashPresenter(SplashModel viewModel, RxScheduler rxSchedulers, CompositeSubscription subscriptions) {
-        super(viewModel, rxSchedulers, subscriptions);
-        this.viewModel = viewModel;
+    public SplashPresenter(SplashView view, SplashModel model, RxScheduler rxSchedulers, CompositeSubscription subscriptions) {
+        super(view, model, rxSchedulers, subscriptions);
+        this.view = view;
+        this.model = model;
     }
 
 }
