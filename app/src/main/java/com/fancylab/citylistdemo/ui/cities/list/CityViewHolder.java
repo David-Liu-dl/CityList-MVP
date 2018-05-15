@@ -40,6 +40,7 @@ public class CityViewHolder extends RecyclerView.ViewHolder {
         Picasso.get()
                 .load(city.getImageHref())
                 .placeholder(R.drawable.res_image_placeholder)
+                .error(R.drawable.res_image_badurl)
                 .into(cityImageIv);
 
         cityTitleTv.setText(city.getTitle());

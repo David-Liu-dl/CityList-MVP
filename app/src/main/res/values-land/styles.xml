@@ -16,7 +16,7 @@
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/item_city_title_textsize</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">left</item>
         <item name="android:layout_marginTop">@dimen/recylerview_tv_space_title</item>
         <item name="android:layout_marginStart">@dimen/recylerview_tv_space_title</item>
     </style>
