@@ -31,7 +31,7 @@ public class SplashViewImp implements SplashContract.SplashView {
         FrameLayout parent = new FrameLayout(context);
         parent.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view = LayoutInflater.from(context).inflate(R.layout.activity_splash, parent, true);
-        ButterKnife.bind(view, context);
+        ButterKnife.bind(this, view);
     }
 
     @Override
