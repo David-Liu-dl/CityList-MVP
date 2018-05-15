@@ -6,27 +6,24 @@
 
     <ImageView
         android:id="@+id/city_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/content_description_country_image"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        android:contentDescription="@string/content_description_country_image"
         style="@style/CityImageView" />
 
     <TextView
         android:id="@+id/city_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/city_image"
+        app:layout_constraintTop_toBottomOf="@id/city_image"
         style="@style/TextTitleView" />
 
     <TextView
         android:id="@+id/city_description"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/city_title"
-        app:layout_constraintLeft_toRightOf="@id/city_image"
         style="@style/TextDescriptionView" />
 
 </android.support.constraint.ConstraintLayout>

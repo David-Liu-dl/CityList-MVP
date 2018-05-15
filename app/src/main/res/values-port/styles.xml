@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CityImageView">
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="TextTitleView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/item_city_title_textsize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/recylerview_tv_space_title</item>
+    </style>
+
+    <style name="TextDescriptionView" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/item_city_description_textsize</item>
+        <item name="android:layout_marginTop">@dimen/recylerview_tv_space_title</item>
+    </style>
+</resources>

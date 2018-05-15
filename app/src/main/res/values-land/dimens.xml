@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbar_height">50dp</dimen>
+
+    <dimen name="recylerview_item_space_city">10dp</dimen>
+    <dimen name="recylerview_tv_space_title">10dp</dimen>
+    <dimen name="recylerview_tv_space_description">10dp</dimen>
+
+    <dimen name="item_city_title_textsize">20sp</dimen>
+    <dimen name="item_city_description_textsize">16sp</dimen>
+</resources>
