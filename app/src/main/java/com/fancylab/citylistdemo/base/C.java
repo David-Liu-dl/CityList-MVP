@@ -6,7 +6,13 @@ package com.fancylab.citylistdemo.base;
  */
 
 public class C {
+
     public static class remote{
         public static final String HOST = "https://dl.dropboxusercontent.com/";
     }
+
+    public static class data{
+        public static final String DATA_COUNTRY = "countryData";
+    }
+
 }

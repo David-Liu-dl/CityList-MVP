@@ -11,11 +11,11 @@ import rx.Observable;
  * lyhmelbourne@gmail.com
  */
 
-public class SplashModel implements BaseModel {
+public class SplashModelImp implements SplashContract.SplashModel {
 
     private SplashActivity splashContext;
 
-    public SplashModel(SplashActivity splashContext) {
+    public SplashModelImp(SplashActivity splashContext) {
         this.splashContext = splashContext;
     }
 

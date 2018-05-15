@@ -2,11 +2,11 @@ package com.fancylab.citylistdemo.ui.splash;
 
 import android.os.Bundle;
 
-import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.application.AppApplication;
 import com.fancylab.citylistdemo.base.BaseActivity;
-import com.fancylab.citylistdemo.ui.splash.core.SplashPresenter;
-import com.fancylab.citylistdemo.ui.splash.core.SplashView;
+import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
+import com.fancylab.citylistdemo.ui.splash.core.SplashPresenterImp;
+import com.fancylab.citylistdemo.ui.splash.core.SplashViewImp;
 import com.fancylab.citylistdemo.ui.splash.dagger.DaggerSplashComponent;
 import com.fancylab.citylistdemo.ui.splash.dagger.SplashContextModule;
 
@@ -14,8 +14,8 @@ import javax.inject.Inject;
 
 public class SplashActivity extends BaseActivity {
 
-    private SplashView splashView;
-    private SplashPresenter splashPresenter;
+    private SplashContract.SplashView splashView;
+    private SplashContract.SplashPresenter splashPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,12 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Inject
-    public void setSplashView(SplashView splashView){
+    public void setSplashView(SplashContract.SplashView splashView){
         this.splashView = splashView;
     }
 
     @Inject
-    public void setSplashPresenter(SplashPresenter splashPresenter){
+    public void setSplashPresenter(SplashContract.SplashPresenter splashPresenter){
         this.splashPresenter = splashPresenter;
     }
 

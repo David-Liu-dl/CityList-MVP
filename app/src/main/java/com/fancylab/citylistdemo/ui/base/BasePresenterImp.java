@@ -27,25 +27,27 @@ public abstract class BasePresenterImp implements BasePresenter {
 
     @Override
     public void onCreate() {
-        model.isNetworkAvailable()
-                .doOnNext(isAvailable -> {
-                   if (!isAvailable){
-                       UiUtils.showSnackbar(view.getView()
-                               , view.getView().getContext().getString(R.string.message_network_unavailable)
-                               , view.getView().getContext().getResources().getInteger(R.integer.duration_snackbar));
-                   }
-                })
-               .filter(isNetworkAvailable -> true)
-               .flatMap(isAvailable -> model.isNetworkAvailable())
-               .subscribeOn(rxSchedulers.internet())
-               .observeOn(rxSchedulers.androidThread()).subscribe(aBoolean -> {
-                   // TODO: 15/5/18 prepare work
-               }, UiUtils::handleThrowable);
+        checkNetwork();
     }
 
     @Override
     public void onDestroy() {
         subscriptions.clear();
         model.clear();
+    }
+
+    private void checkNetwork(){
+        model.isNetworkAvailable()
+                .doOnNext(isAvailable -> {
+                    if (!isAvailable){
+                        UiUtils.showSnackbar(view.getView()
+                                , view.getView().getContext().getString(R.string.message_network_unavailable)
+                                , view.getView().getContext().getResources().getInteger(R.integer.duration_snackbar));
+                    }
+                })
+                .filter(isNetworkAvailable -> true)
+                .flatMap(isAvailable -> model.isNetworkAvailable())
+                .subscribeOn(rxSchedulers.internet())
+                .observeOn(rxSchedulers.androidThread()).subscribe(aBoolean -> onStart(), UiUtils::handleThrowable);
     }
 }

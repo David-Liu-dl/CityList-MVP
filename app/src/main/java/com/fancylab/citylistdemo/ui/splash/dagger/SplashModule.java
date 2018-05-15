@@ -1,9 +1,10 @@
 package com.fancylab.citylistdemo.ui.splash.dagger;
 
 import com.fancylab.citylistdemo.ui.splash.SplashActivity;
-import com.fancylab.citylistdemo.ui.splash.core.SplashModel;
-import com.fancylab.citylistdemo.ui.splash.core.SplashPresenter;
-import com.fancylab.citylistdemo.ui.splash.core.SplashView;
+import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
+import com.fancylab.citylistdemo.ui.splash.core.SplashModelImp;
+import com.fancylab.citylistdemo.ui.splash.core.SplashPresenterImp;
+import com.fancylab.citylistdemo.ui.splash.core.SplashViewImp;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
 import dagger.Module;
@@ -20,21 +21,21 @@ public class SplashModule {
 
     @SplashScope
     @Provides
-    SplashPresenter providePresenter(RxScheduler schedulers, SplashView view, SplashModel model) {
+    SplashContract.SplashPresenter providePresenter(RxScheduler schedulers, SplashContract.SplashView view, SplashContract.SplashModel model) {
         CompositeSubscription compositeSubscription = new CompositeSubscription();
-        return new SplashPresenter(view, model, schedulers, compositeSubscription);
+        return new SplashPresenterImp(view, model, schedulers, compositeSubscription);
     }
 
     @SplashScope
     @Provides
-    SplashView provideSplashView(SplashActivity context) {
-        return new SplashView(context);
+    SplashContract.SplashView provideSplashView(SplashActivity context) {
+        return new SplashViewImp(context);
     }
 
 
     @SplashScope
     @Provides
-    SplashModel provideSplashModel(SplashActivity context) {
-        return new SplashModel(context);
+    SplashContract.SplashModel provideSplashModel(SplashActivity context) {
+        return new SplashModelImp(context);
     }
 }
