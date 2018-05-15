@@ -3,13 +3,13 @@ package com.fancylab.citylistdemo.ui.cities.core;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.fancylab.citylistdemo.R;
-import com.fancylab.citylistdemo.base.BaseActivity;
 import com.fancylab.citylistdemo.models.Country;
 import com.fancylab.citylistdemo.ui.cities.CountryActivity;
 import com.fancylab.citylistdemo.ui.cities.list.CitiesAdapter;
@@ -18,7 +18,6 @@ import com.fancylab.citylistdemo.utils.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.internal.Util;
 
 /**
  * Created by David Liu on 15/5/18.
@@ -32,6 +31,8 @@ public class CountryViewImp implements CountryContract.CountryView
     private View view;
     private CitiesAdapter adapter;
 
+    @BindView(R.id.toolbar_country)
+    Toolbar toolbar;
     @BindView(R.id.cities_list_refreshlayout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.cities_list_recyclerview)
@@ -48,6 +49,8 @@ public class CountryViewImp implements CountryContract.CountryView
     }
 
     private void initView(){
+        activity.setSupportActionBar(toolbar);
+
         swipeRefreshLayout.setOnRefreshListener(this);
 
         final int itemSpace = (int) activity.getResources().getDimension(R.dimen.recylerview_item_space_city);
@@ -73,6 +76,8 @@ public class CountryViewImp implements CountryContract.CountryView
     @Override
     public void displayCountry(Country country) {
         swipeRefreshLayout.setRefreshing(false);
+
+        toolbar.setTitle(country.getTitle());
         adapter.refresh(country.getCities());
     }
 

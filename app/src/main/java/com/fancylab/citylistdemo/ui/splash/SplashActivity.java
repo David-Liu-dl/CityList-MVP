@@ -5,8 +5,6 @@ import android.os.Bundle;
 import com.fancylab.citylistdemo.application.AppApplication;
 import com.fancylab.citylistdemo.base.BaseActivity;
 import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
-import com.fancylab.citylistdemo.ui.splash.core.SplashPresenterImp;
-import com.fancylab.citylistdemo.ui.splash.core.SplashViewImp;
 import com.fancylab.citylistdemo.ui.splash.dagger.DaggerSplashComponent;
 import com.fancylab.citylistdemo.ui.splash.dagger.SplashContextModule;
 
