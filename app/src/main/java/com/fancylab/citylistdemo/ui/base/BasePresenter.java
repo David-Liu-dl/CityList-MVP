@@ -23,7 +23,7 @@ public interface BasePresenter {
 
     /**
      * Called when view is destroyed
-     * in in {@link BaseActivity#onDestroy()}.
+     * in {@link BaseActivity#onDestroy()}.
      */
     void onDestroy();
 }

@@ -28,4 +28,5 @@ public class CitiesApiServiceModule {
 
         return  retrofit.create(CountryApi.class);
     }
+
 }

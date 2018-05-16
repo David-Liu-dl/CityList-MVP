@@ -34,7 +34,6 @@ public class CountryModule {
         return new CountryViewImp(context);
     }
 
-
     @CountryScope
     @Provides
     CountryContract.CountryModel provideModel(CountryActivity context, CountryApi countryApi) {

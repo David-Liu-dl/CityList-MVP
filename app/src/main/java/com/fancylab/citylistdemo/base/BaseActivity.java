@@ -21,10 +21,8 @@ public abstract class BaseActivity extends AppCompatActivity{
 
     protected abstract void setupDaggerComponent();
 
-
     public int convertDpToPx(int dp){
         return Math.round(dp*(getResources().getDisplayMetrics().xdpi/ DisplayMetrics.DENSITY_DEFAULT));
-
     }
 
     public int convertPxToDp(int px){
