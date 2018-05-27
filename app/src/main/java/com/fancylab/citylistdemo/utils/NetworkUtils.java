@@ -20,7 +20,6 @@ public class NetworkUtils {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
-
     public static Observable<Boolean> isNetworkAvailableObservable(Context context) {
         return Observable.just(NetworkUtils.isNetworkAvailable(context));
     }

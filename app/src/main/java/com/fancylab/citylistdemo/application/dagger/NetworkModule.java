@@ -1,6 +1,7 @@
 package com.fancylab.citylistdemo.application.dagger;
 
 import android.content.Context;
+import android.os.Environment;
 
 import com.fancylab.citylistdemo.utils.rx.AppRxSchedulers;
 
@@ -53,12 +54,14 @@ public class NetworkModule {
     @AppScope
     @Provides
     Cache provideCache(File file) {
-        return new Cache(file, 10 * 10 * 1000);
+        return new Cache(file, 10 * 1024 * 1024);
     }
 
     @AppScope
     @Provides
     File provideCacheFile(Context context) {
-        return context.getFilesDir();
+        Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);
+        Boolean isSDSupportedDevice = Environment.isExternalStorageRemovable();
+        return isSDSupportedDevice && isSDPresent ? context.getExternalCacheDir() : context.getCacheDir();
     }
 }

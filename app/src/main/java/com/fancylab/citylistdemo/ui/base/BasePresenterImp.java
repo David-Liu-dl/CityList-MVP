@@ -4,6 +4,7 @@ import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.utils.UiUtils;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -32,12 +33,13 @@ public abstract class BasePresenterImp implements BasePresenter {
 
     @Override
     public void onDestroy() {
+        subscriptions.unsubscribe();
         subscriptions.clear();
         model.clear();
     }
 
     private void checkNetwork(){
-        model.isNetworkAvailable()
+        Subscription networkCheckingSubscription = model.isNetworkAvailable()
                 .doOnNext(isAvailable -> {
                     if (!isAvailable){
                         UiUtils.showSnackbar(view.getView()
@@ -49,5 +51,7 @@ public abstract class BasePresenterImp implements BasePresenter {
                 .flatMap(isAvailable -> model.isNetworkAvailable())
                 .subscribeOn(rxSchedulers.internet())
                 .observeOn(rxSchedulers.androidThread()).subscribe(aBoolean -> onStart(), UiUtils::handleThrowable);
+
+        subscriptions.add(networkCheckingSubscription);
     }
 }
