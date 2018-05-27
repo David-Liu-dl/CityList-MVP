@@ -49,11 +49,6 @@ public class SplashPresenterImpTest {
         splashPresenterImp = new SplashPresenterImp(view, model, rxScheduler, subscriptions);
     }
 
-    @After
-    public void tearDown() throws Exception {
-
-    }
-
     private void setupSchedulers(){
         when(rxScheduler.internet()).thenReturn(testScheduler);
         when(rxScheduler.androidThread()).thenReturn(testScheduler);
