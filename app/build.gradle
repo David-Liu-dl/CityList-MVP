@@ -1,5 +1,17 @@
 apply plugin: 'com.android.application'
 
+final ANDROID_VERSION = '27.1.1'
+final RETROFIT_VERSION = '2.3.0'
+final DAGGER_VERSION = '2.15'
+final BUTTERKNIFE_VERSION = '8.8.1'
+final LEAKCANARY_VERSION = '1.5.4'
+final JUNIT_VERSION = '4.12'
+final MOCKITO_VERSION = '1.10.19'
+final HAMCREAST_VERSION = '1.3'
+final RULES_VERSION = '1.0.2'
+final RUNNER_VERSION = '1.0.2'
+final ESPRESSO_VERSION = '3.0.2'
+
 android {
     compileSdkVersion 27
     buildToolsVersion "27.0.3"
@@ -17,18 +29,22 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            def requested = details.requested
+            if (requested.group == 'com.android.support') {
+                if (!requested.name.startsWith("multidex")) {
+                    details.useVersion ANDROID_VERSION
+                }
+            }
+        }
+    }
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
 }
 
-final ANDROID_VERSION = '27.1.1'
-final RETROFIT_VERSION = '2.3.0'
-final DAGGER_VERSION = '2.15'
-final BUTTERKNIFE_VERSION = '8.8.1'
-final LEAKCANARY_VERSION = '1.5.4'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -62,8 +78,27 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     //Image
     implementation 'com.squareup.picasso:picasso:2.71828'
+
     //Testing
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //Dependencies for local unit tests
+    testImplementation "junit:junit:${JUNIT_VERSION}"
+    testImplementation "org.mockito:mockito-all:${MOCKITO_VERSION}"
+    testImplementation "org.hamcrest:hamcrest-all:${HAMCREAST_VERSION}"
+    //Android Testing Support Library's runner and rules
+    testImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
+    testImplementation "com.android.support.test:rules:${RULES_VERSION}"
+    //Dependencies for Android unit tests
+    //Espresso
+    testImplementation "com.android.support.test.espresso:espresso-core:${ESPRESSO_VERSION}"
+    testImplementation "com.android.support.test.espresso:espresso-contrib:${ESPRESSO_VERSION}"
+    testImplementation "com.android.support.test.espresso:espresso-intents:${ESPRESSO_VERSION}"
+    testImplementation "com.android.support.test.espresso.idling:idling-concurrent:${ESPRESSO_VERSION}"
+    implementation "com.android.support.test.espresso:espresso-idling-resource:${ESPRESSO_VERSION}"
+    //Mockito and JUnit
+    testImplementation "org.mockito:mockito-core:${MOCKITO_VERSION}"
+    testImplementation "junit:junit:${JUNIT_VERSION}"
+    //Dependency for Annotation
+    annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
+    annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
 }
