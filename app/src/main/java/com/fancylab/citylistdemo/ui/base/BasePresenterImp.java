@@ -33,6 +33,7 @@ public abstract class BasePresenterImp implements BasePresenter {
 
     @Override
     public void onDestroy() {
+        subscriptions.unsubscribe();
         subscriptions.clear();
         model.clear();
     }
