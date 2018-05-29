@@ -9,4 +9,5 @@ import android.view.View;
 
 public interface BaseView {
     View getView();
+    void showSnackNetworkAvailabilityMessage(boolean isAvailable);
 }

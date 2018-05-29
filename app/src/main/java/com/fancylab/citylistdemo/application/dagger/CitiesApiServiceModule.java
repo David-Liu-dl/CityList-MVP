@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.PUT;
 
 /**
  * Created by David Liu on 14/5/18.
@@ -20,7 +21,7 @@ public class CitiesApiServiceModule {
 
     @AppScope
     @Provides
-    CountryApi provideApiService(OkHttpClient client, GsonConverterFactory gson, RxJavaCallAdapterFactory rxAdapter)
+    public CountryApi provideApiService(OkHttpClient client, GsonConverterFactory gson, RxJavaCallAdapterFactory rxAdapter)
     {
         Retrofit retrofit =   new Retrofit.Builder().client(client)
                 .baseUrl(C.remote.HOST).addConverterFactory(gson).

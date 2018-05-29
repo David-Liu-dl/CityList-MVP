@@ -1,5 +1,6 @@
 package com.fancylab.citylistdemo.ui.cities.core;
 
+import android.content.Context;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -85,5 +86,13 @@ public class CountryViewImp implements CountryContract.CountryView
     public void onError(String msg) {
         swipeRefreshLayout.setRefreshing(false);
         UiUtils.showSnackbar(view, msg, activity.getResources().getInteger(R.integer.duration_snackbar));
+    }
+
+    @Override
+    public void showSnackNetworkAvailabilityMessage(boolean isAvailable) {
+        Context context = view.getContext();
+        UiUtils.showSnackbar(view
+                , context.getString(isAvailable ? R.string.message_network_available : R.string.message_network_unavailable)
+                , context.getResources().getInteger(R.integer.duration_snackbar));
     }
 }

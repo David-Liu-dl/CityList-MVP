@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NetworkModule {
 
-    @AppScope
     @Provides
     OkHttpClient provideHttpClient(HttpLoggingInterceptor logger, Cache cache) {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();
@@ -32,7 +31,6 @@ public class NetworkModule {
         return builder.build();
     }
 
-    @AppScope
     @Provides
     HttpLoggingInterceptor provideInterceptor() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -40,7 +38,6 @@ public class NetworkModule {
         return httpLoggingInterceptor;
     }
 
-    @AppScope
     @Provides
     RxJavaCallAdapterFactory provideRxAdapter() {
         return RxJavaCallAdapterFactory.createWithScheduler(AppRxSchedulers.INTERNET_SCHEDULERS);
@@ -51,13 +48,11 @@ public class NetworkModule {
         return GsonConverterFactory.create();
     }
 
-    @AppScope
     @Provides
     Cache provideCache(File file) {
         return new Cache(file, 10 * 1024 * 1024);
     }
 
-    @AppScope
     @Provides
     File provideCacheFile(Context context) {
         Boolean isSDPresent = android.os.Environment.getExternalStorageState().equals(android.os.Environment.MEDIA_MOUNTED);

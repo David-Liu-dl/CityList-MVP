@@ -1,6 +1,5 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
-import com.fancylab.citylistdemo.ui.base.BaseModel;
 import com.fancylab.citylistdemo.ui.splash.SplashActivity;
 import com.fancylab.citylistdemo.utils.NetworkUtils;
 
