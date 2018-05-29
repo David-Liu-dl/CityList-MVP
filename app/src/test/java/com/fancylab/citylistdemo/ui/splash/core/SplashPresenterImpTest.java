@@ -28,7 +28,6 @@ import static org.mockito.Mockito.when;
  * lyhmelbourne@gmail.com
  */
 
-
 public class SplashPresenterImpTest {
 
     @Mock

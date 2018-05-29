@@ -15,6 +15,7 @@ import dagger.Provides;
 public class RxModule {
 
     @Provides
+    @AppScope
     RxScheduler provideRxSchedulers() {
         return new AppRxSchedulers();
     }

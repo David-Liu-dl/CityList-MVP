@@ -11,6 +11,7 @@ final HAMCREAST_VERSION = '1.3'
 final RULES_VERSION = '1.0.2'
 final RUNNER_VERSION = '1.0.2'
 final ESPRESSO_VERSION = '3.0.2'
+final OKHTTP_VERSION = '3.9.0'
 
 android {
     compileSdkVersion 27
@@ -57,7 +58,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation "com.squareup.retrofit2:retrofit:${RETROFIT_VERSION}"
     implementation "com.squareup.retrofit2:converter-gson:${RETROFIT_VERSION}"
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'
+    implementation "com.squareup.okhttp3:logging-interceptor:${OKHTTP_VERSION}"
     //Rx adapter for retrofit
     implementation "com.squareup.retrofit2:adapter-rxjava:${RETROFIT_VERSION}"
     //Rx
@@ -84,6 +85,7 @@ dependencies {
     testImplementation "junit:junit:${JUNIT_VERSION}"
     testImplementation "org.mockito:mockito-all:${MOCKITO_VERSION}"
     testImplementation "org.hamcrest:hamcrest-all:${HAMCREAST_VERSION}"
+    testImplementation "com.squareup.okhttp3:mockwebserver:${OKHTTP_VERSION}"
     //Android Testing Support Library's runner and rules
     testImplementation "com.android.support.test:runner:${RUNNER_VERSION}"
     testImplementation "com.android.support.test:rules:${RULES_VERSION}"
@@ -100,5 +102,6 @@ dependencies {
     //Dependency for Annotation
     annotationProcessor "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_VERSION}"
     annotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
+    testAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:${DAGGER_VERSION}"
 }

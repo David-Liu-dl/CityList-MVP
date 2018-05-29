@@ -8,6 +8,12 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.net.HttpURLConnection;
+
+import javax.inject.Inject;
+
+import okhttp3.mockwebserver.MockWebServer;
+import retrofit2.HttpException;
 import rx.Observable;
 import rx.schedulers.TestScheduler;
 import rx.subscriptions.CompositeSubscription;
@@ -28,6 +34,8 @@ public class CountryPresenterImpTest {
     CountryContract.CountryModel model;
     @Mock
     RxScheduler rxScheduler;
+    @Mock
+    HttpException httpException;
 
     private CompositeSubscription subscriptions = new CompositeSubscription();
     private TestScheduler testScheduler = new TestScheduler();
@@ -73,14 +81,54 @@ public class CountryPresenterImpTest {
     }
 
     @Test
-    public void callViewOnError_when_created_networkAvailable_getCountryInfoReturnInvalid(){
-        final String errorMsg = "errorMsg";
+    public void callViewOnError_when_created_networkAvailable_getCountryInfoReturnInvalid_ERROR401(){
+        final String errorMsg = "errorMsg401";
+
         //noinspection unchecked
         when(model.isNetworkAvailable())
                 .thenReturn(Observable.just(true), Observable.just(true));
-        when(model.getCountryInfo()).thenThrow(new RuntimeException(errorMsg));
+        when(httpException.code()).thenReturn(HttpURLConnection.HTTP_UNAUTHORIZED);
+        when(httpException.getMessage()).thenReturn(errorMsg);
+        when(model.getCountryInfo()).thenReturn(Observable.error(httpException));
+
         countryPresenterImp.onCreate();
         testScheduler.triggerActions();
+
+        verify(view, times(1)).onError(errorMsg);
+    }
+
+    @Test
+    public void callViewOnError_when_created_networkAvailable_getCountryInfoReturnInvalid_ERROR404(){
+        final String errorMsg = "errorMsg404";
+
+        //noinspection unchecked
+        when(model.isNetworkAvailable())
+                .thenReturn(Observable.just(true), Observable.just(true));
+        when(httpException.code()).thenReturn(HttpURLConnection.HTTP_NOT_FOUND);
+        when(httpException.getMessage()).thenReturn(errorMsg);
+
+        when(model.getCountryInfo()).thenReturn(Observable.error(httpException));
+
+        countryPresenterImp.onCreate();
+        testScheduler.triggerActions();
+
+        verify(view, times(1)).onError(errorMsg);
+    }
+
+    @Test
+    public void callViewOnError_when_created_networkAvailable_getCountryInfoReturnInvalid_ERROR503(){
+        final String errorMsg = "errorMsg503";
+
+        //noinspection unchecked
+        when(model.isNetworkAvailable())
+                .thenReturn(Observable.just(true), Observable.just(true));
+        when(httpException.code()).thenReturn(HttpURLConnection.HTTP_UNAVAILABLE);
+        when(httpException.getMessage()).thenReturn(errorMsg);
+        when(model.getCountryInfo()).thenReturn(Observable.error(httpException));
+
+        countryPresenterImp.onCreate();
+        testScheduler.triggerActions();
+
         verify(view, times(1)).onError(errorMsg);
     }
 

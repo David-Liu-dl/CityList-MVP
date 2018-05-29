@@ -1,6 +1,5 @@
 package com.fancylab.citylistdemo.ui.cities.core;
 
-import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.ui.base.BasePresenterImp;
 import com.fancylab.citylistdemo.utils.UiUtils;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
