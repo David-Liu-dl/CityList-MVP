@@ -1,16 +1,13 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.ui.base.BasePresenterImp;
-import com.fancylab.citylistdemo.utils.UiUtils;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
 import java.util.concurrent.TimeUnit;
 
 import rx.Observable;
+import rx.Subscription;
+import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -32,15 +29,15 @@ public class SplashPresenterImp extends BasePresenterImp
 
     @Override
     public void onStart() {
-        Context context = view.getView().getContext();
+        view.showSnackNetworkAvailabilityMessage(true);
 
-        UiUtils.showSnackbar(view.getView()
-                , context.getString(R.string.message_network_available)
-                , context.getResources().getInteger(R.integer.duration_snackbar));
-
-        subscriptions.add(Observable
+        Subscription waitSubscription = Observable
                 .just(true)
-                .delay(context.getResources().getInteger(R.integer.duration_snackbar), TimeUnit.MILLISECONDS)
-                .subscribe(aLong -> view.intentToCountryActivity(null)));
+                .delay(2000, TimeUnit.MILLISECONDS, rxSchedulers.compute())
+                .subscribeOn(rxSchedulers.io())
+                .observeOn(rxSchedulers.androidThread())
+                .subscribe(aLong -> view.intentToCountryActivity(null));
+
+        subscriptions.add(waitSubscription);
     }
 }

@@ -1,5 +1,6 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.fancylab.citylistdemo.base.BaseActivity;
 import com.fancylab.citylistdemo.base.C;
 import com.fancylab.citylistdemo.ui.cities.CountryActivity;
 import com.fancylab.citylistdemo.ui.splash.SplashActivity;
+import com.fancylab.citylistdemo.utils.UiUtils;
 
 import java.io.Serializable;
 
@@ -46,4 +48,11 @@ public class SplashViewImp implements SplashContract.SplashView {
         activity.startActivity(intent);
     }
 
+    @Override
+    public void showSnackNetworkAvailabilityMessage(boolean isAvailable) {
+        Context context = view.getContext();
+        UiUtils.showSnackbar(view
+                , context.getString(isAvailable ? R.string.message_network_available : R.string.message_network_unavailable)
+                , context.getResources().getInteger(R.integer.duration_snackbar));
+    }
 }

@@ -1,10 +1,10 @@
 package com.fancylab.citylistdemo.ui.base;
 
-import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.utils.UiUtils;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
 import rx.Subscription;
+import rx.functions.Action1;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -41,16 +41,14 @@ public abstract class BasePresenterImp implements BasePresenter {
     private void checkNetwork(){
         Subscription networkCheckingSubscription = model.isNetworkAvailable()
                 .doOnNext(isAvailable -> {
-                    if (!isAvailable){
-                        UiUtils.showSnackbar(view.getView()
-                                , view.getView().getContext().getString(R.string.message_network_unavailable)
-                                , view.getView().getContext().getResources().getInteger(R.integer.duration_snackbar));
+                    if (!isAvailable) {
+                        view.showSnackNetworkAvailabilityMessage(isAvailable);
                     }
                 })
-                .filter(isNetworkAvailable -> true)
-                .flatMap(isAvailable -> model.isNetworkAvailable())
+                .filter((Boolean isNetworkAvailable) -> isNetworkAvailable)
                 .subscribeOn(rxSchedulers.internet())
-                .observeOn(rxSchedulers.androidThread()).subscribe(aBoolean -> onStart(), UiUtils::handleThrowable);
+                .observeOn(rxSchedulers.androidThread())
+                .subscribe(aBoolean -> BasePresenterImp.this.onStart(), throwable -> UiUtils.handleThrowable(throwable));
 
         subscriptions.add(networkCheckingSubscription);
     }
