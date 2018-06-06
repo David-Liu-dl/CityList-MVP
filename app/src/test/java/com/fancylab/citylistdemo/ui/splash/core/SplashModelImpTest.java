@@ -1,5 +1,10 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
+<<<<<<< HEAD
+=======
+import com.fancylab.citylistdemo.ui.cities.CountryActivity;
+import com.fancylab.citylistdemo.ui.splash.SplashActivity;
+>>>>>>> add: unit test for country & splash model, modified: field name splashContext to context in SplashModel
 import com.fancylab.citylistdemo.utils.NetworkUtils;
 
 import junit.framework.Assert;
@@ -8,12 +13,20 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+<<<<<<< HEAD
+=======
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
+>>>>>>> add: unit test for country & splash model, modified: field name splashContext to context in SplashModel
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import rx.Observable;
 
+<<<<<<< HEAD
+=======
+import static org.junit.Assert.*;
+>>>>>>> add: unit test for country & splash model, modified: field name splashContext to context in SplashModel
 import static org.mockito.Matchers.any;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
