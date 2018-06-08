@@ -9,3 +9,4 @@ The project has following features:
 3. Using SwipeRefreshLayout to implement refresh function.
 4. Simply implemented the screen adaptation and oritation rotation.
 5. Clear packaing and strcuture, easy to undertand and has a high maintainability.
+6. Including Unit Test and androidTest with various useful libraries. 
