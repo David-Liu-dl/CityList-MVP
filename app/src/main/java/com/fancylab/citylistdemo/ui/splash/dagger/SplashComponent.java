@@ -1,7 +1,8 @@
 package com.fancylab.citylistdemo.ui.splash.dagger;
 
 import com.fancylab.citylistdemo.application.dagger.AppComponent;
-import com.fancylab.citylistdemo.ui.splash.SplashActivity;
+import com.fancylab.citylistdemo.application.dagger.AppComponentBase;
+import com.fancylab.citylistdemo.ui.splash.core.SplashActivity;
 
 import dagger.Component;
 
@@ -11,7 +12,7 @@ import dagger.Component;
  */
 
 @SplashScope
-@Component(modules = {SplashContextModule.class, SplashModule.class}, dependencies = {AppComponent.class})
+@Component(modules = {SplashContextModule.class, SplashModule.class}, dependencies = {AppComponentBase.class})
 public interface SplashComponent {
     void inject(SplashActivity activity);
 }

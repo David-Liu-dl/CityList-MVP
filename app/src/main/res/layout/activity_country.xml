@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.fancylab.citylistdemo.ui.splash.SplashActivity">
+    tools:context="com.fancylab.citylistdemo.ui.splash.core.SplashActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_country"

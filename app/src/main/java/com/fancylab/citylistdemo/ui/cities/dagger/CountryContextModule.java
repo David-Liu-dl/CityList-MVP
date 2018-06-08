@@ -1,8 +1,6 @@
 package com.fancylab.citylistdemo.ui.cities.dagger;
 
-import com.fancylab.citylistdemo.ui.cities.CountryActivity;
-import com.fancylab.citylistdemo.ui.splash.SplashActivity;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashScope;
+import com.fancylab.citylistdemo.ui.cities.core.CountryActivity;
 
 import dagger.Module;
 import dagger.Provides;

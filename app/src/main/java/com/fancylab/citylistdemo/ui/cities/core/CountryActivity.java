@@ -1,21 +1,24 @@
 package com.fancylab.citylistdemo.ui.cities.core;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import com.fancylab.citylistdemo.R;
+import com.fancylab.citylistdemo.application.AppApplication;
+import com.fancylab.citylistdemo.base.AppBaseActivity;
+import com.fancylab.citylistdemo.base.DaggerBaseActivity;
 import com.fancylab.citylistdemo.models.Country;
-import com.fancylab.citylistdemo.ui.cities.CountryActivity;
+import com.fancylab.citylistdemo.ui.cities.dagger.DaggerCountryComponent;
 import com.fancylab.citylistdemo.ui.cities.list.CitiesAdapter;
 import com.fancylab.citylistdemo.ui.cities.list.SpaceItemDecoration;
 import com.fancylab.citylistdemo.utils.UiUtils;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,13 +28,11 @@ import butterknife.ButterKnife;
  * lyhmelbourne@gmail.com
  */
 
-public class CountryViewImp implements CountryContract.CountryView
-        , SwipeRefreshLayout.OnRefreshListener {
+public class CountryActivity extends AppBaseActivity
+        implements CountryContract.CountryView, SwipeRefreshLayout.OnRefreshListener{
 
-    private CountryActivity activity;
-    private View view;
-    private CitiesAdapter adapter;
-
+    @BindView(R.id.root_view)
+    View view;
     @BindView(R.id.toolbar_country)
     Toolbar toolbar;
     @BindView(R.id.cities_list_refreshlayout)
@@ -39,29 +40,53 @@ public class CountryViewImp implements CountryContract.CountryView
     @BindView(R.id.cities_list_recyclerview)
     RecyclerView recyclerView;
 
-    public CountryViewImp(CountryActivity context) {
-        this.activity = context;
-        FrameLayout parent = new FrameLayout(context);
-        parent.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        view = LayoutInflater.from(context).inflate(R.layout.activity_country, parent, true);
-        ButterKnife.bind(this, view);
+    private CountryContract.CountryPresenter countryPresenter;
+    private CitiesAdapter adapter;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_country);
+        ButterKnife.bind(this);
         initView();
+        countryPresenter.onCreate();
     }
 
     private void initView(){
-        activity.setSupportActionBar(toolbar);
+        setSupportActionBar(toolbar);
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
-        final int itemSpace = (int) activity.getResources().getDimension(R.dimen.recylerview_item_space_city);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(activity);
+        final int itemSpace = (int) getResources().getDimension(R.dimen.recylerview_item_space_city);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new SpaceItemDecoration(activity.convertDpToPx(itemSpace)));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(convertDpToPx(itemSpace)));
 
         adapter = new CitiesAdapter();
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        countryPresenter.onDestroy();
+    }
+
+    @Override
+    protected void setupDaggerComponent() {
+        DaggerCountryComponent
+                .builder()
+                .appComponentBase(AppApplication.get(this).getAppComponent())
+                .countryContextModule(injectionHelper.getCountryContextModule(this))
+                .countryModule(injectionHelper.getCountryModule(this))
+                .build()
+                .inject(this);
+    }
+
+    @Inject
+    public void setCountryPresenter(CountryContract.CountryPresenter countryPresenter){
+        this.countryPresenter = countryPresenter;
     }
 
     @Override
@@ -71,7 +96,7 @@ public class CountryViewImp implements CountryContract.CountryView
 
     @Override
     public void onRefresh() {
-        activity.getCountryPresenter().getCountryInfo();
+        countryPresenter.getCountryInfo();
     }
 
     @Override
@@ -85,7 +110,7 @@ public class CountryViewImp implements CountryContract.CountryView
     @Override
     public void onError(String msg) {
         swipeRefreshLayout.setRefreshing(false);
-        UiUtils.showSnackbar(view, msg, activity.getResources().getInteger(R.integer.duration_snackbar));
+        UiUtils.showSnackbar(view, msg, getResources().getInteger(R.integer.duration_snackbar));
     }
 
     @Override

@@ -1,11 +1,7 @@
 package com.fancylab.citylistdemo.ui.cities.dagger;
 
-import com.fancylab.citylistdemo.application.dagger.AppComponent;
-import com.fancylab.citylistdemo.ui.cities.CountryActivity;
-import com.fancylab.citylistdemo.ui.splash.SplashActivity;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashContextModule;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashModule;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashScope;
+import com.fancylab.citylistdemo.application.dagger.AppComponentBase;
+import com.fancylab.citylistdemo.ui.cities.core.CountryActivity;
 
 import dagger.Component;
 
@@ -15,7 +11,7 @@ import dagger.Component;
  */
 
 @CountryScope
-@Component(modules = {CountryContextModule.class, CountryModule.class}, dependencies = {AppComponent.class})
+@Component(modules = {CountryContextModule.class, CountryModule.class}, dependencies = {AppComponentBase.class})
 public interface CountryComponent {
     void inject(CountryActivity activity);
 }

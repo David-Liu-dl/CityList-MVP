@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fancylab.citylistdemo.ui.splash.SplashActivity">
+    android:id="@+id/root_view"
+    tools:context="com.fancylab.citylistdemo.ui.splash.core.SplashActivity">
 
     <TextView
         android:layout_width="wrap_content"

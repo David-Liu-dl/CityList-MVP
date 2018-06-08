@@ -1,10 +1,9 @@
 package com.fancylab.citylistdemo.ui.splash.dagger;
 
-import com.fancylab.citylistdemo.ui.splash.SplashActivity;
+import com.fancylab.citylistdemo.ui.splash.core.SplashActivity;
 import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
 import com.fancylab.citylistdemo.ui.splash.core.SplashModelImp;
 import com.fancylab.citylistdemo.ui.splash.core.SplashPresenterImp;
-import com.fancylab.citylistdemo.ui.splash.core.SplashViewImp;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
 import dagger.Module;
@@ -19,6 +18,12 @@ import rx.subscriptions.CompositeSubscription;
 @Module
 public class SplashModule {
 
+    private final SplashContract.SplashView view;
+
+    public SplashModule(SplashContract.SplashView view) {
+        this.view = view;
+    }
+
     @SplashScope
     @Provides
     SplashContract.SplashPresenter providePresenter(RxScheduler schedulers, SplashContract.SplashView view, SplashContract.SplashModel model) {
@@ -28,10 +33,9 @@ public class SplashModule {
 
     @SplashScope
     @Provides
-    SplashContract.SplashView provideSplashView(SplashActivity context) {
-        return new SplashViewImp(context);
+    SplashContract.SplashView provideSplashView() {
+        return this.view;
     }
-
 
     @SplashScope
     @Provides

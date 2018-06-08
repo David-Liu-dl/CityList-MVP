@@ -1,10 +1,8 @@
-package com.fancylab.citylistdemo.dagger;
+package com.fancylab.citylistdemo.application.dagger;
 
-import com.fancylab.citylistdemo.application.dagger.RxModule;
 import com.fancylab.citylistdemo.utils.rx.AppRxSchedulers;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import javax.inject.Named;

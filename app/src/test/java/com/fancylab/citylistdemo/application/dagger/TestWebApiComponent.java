@@ -1,4 +1,4 @@
-package com.fancylab.citylistdemo.dagger;
+package com.fancylab.citylistdemo.application.dagger;
 
 import com.fancylab.citylistdemo.ui.cities.core.CountryModelImpTest;
 

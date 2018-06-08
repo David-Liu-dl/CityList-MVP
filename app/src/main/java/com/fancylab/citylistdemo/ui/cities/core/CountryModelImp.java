@@ -2,7 +2,6 @@ package com.fancylab.citylistdemo.ui.cities.core;
 
 import com.fancylab.citylistdemo.api.CountryApi;
 import com.fancylab.citylistdemo.models.Country;
-import com.fancylab.citylistdemo.ui.cities.CountryActivity;
 import com.fancylab.citylistdemo.utils.NetworkUtils;
 
 import rx.Observable;
@@ -36,4 +35,5 @@ public class CountryModelImp implements CountryContract.CountryModel {
     public Observable<Country> getCountryInfo() {
         return countryApi.getCountry();
     }
+
 }

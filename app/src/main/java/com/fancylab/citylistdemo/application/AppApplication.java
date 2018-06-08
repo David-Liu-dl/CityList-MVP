@@ -3,7 +3,7 @@ package com.fancylab.citylistdemo.application;
 import android.app.Application;
 import android.content.Context;
 
-import com.fancylab.citylistdemo.application.dagger.AppComponent;
+import com.fancylab.citylistdemo.application.dagger.AppComponentBase;
 import com.fancylab.citylistdemo.application.dagger.AppContextModule;
 import com.fancylab.citylistdemo.application.dagger.DaggerAppComponent;
 import com.squareup.leakcanary.LeakCanary;
@@ -18,7 +18,7 @@ import timber.log.Timber;
 
 public class AppApplication extends Application {
 
-    private static AppComponent appComponent;
+    protected static AppComponentBase appComponent;
 
     @Override
     public void onCreate() {
@@ -54,7 +54,7 @@ public class AppApplication extends Application {
                 .build();
     }
 
-    public AppComponent getAppComponent() {
+    public AppComponentBase getAppComponent() {
         if (appComponent == null){
             initAppComponent();
         }

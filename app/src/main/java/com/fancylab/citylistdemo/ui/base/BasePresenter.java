@@ -2,7 +2,7 @@ package com.fancylab.citylistdemo.ui.base;
 
 import android.os.Bundle;
 
-import com.fancylab.citylistdemo.base.BaseActivity;
+import com.fancylab.citylistdemo.base.DaggerBaseActivity;
 
 /**
  * Created by David Liu on 15/5/18.
@@ -12,7 +12,7 @@ import com.fancylab.citylistdemo.base.BaseActivity;
 public interface BasePresenter {
     /**
      * Called when presenter is created
-     * in {@link com.fancylab.citylistdemo.base.BaseActivity#onCreate(Bundle)}.
+     * in {@link DaggerBaseActivity#onCreate(Bundle)}.
      */
     void onCreate();
 
@@ -23,7 +23,11 @@ public interface BasePresenter {
 
     /**
      * Called when view is destroyed
+<<<<<<< HEAD
      * in {@link BaseActivity#onDestroy()}.
+=======
+     * in in {@link DaggerBaseActivity#onDestroy()}.
+>>>>>>> dev
      */
     void onDestroy();
 }

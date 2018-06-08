@@ -1,0 +1,47 @@
+apply plugin: 'jacoco'
+
+final JACOCO_VERSION = '0.8.1'
+
+jacoco {
+    toolVersion JACOCO_VERSION
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+    group = "reporting"
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [
+            '**/R.class'
+            , '**/R$*.class'
+            , '**/BuildConfig.*'
+            , '**/Manifest*.*'
+            , '**/*Test*.*'
+            , 'android/**/*.*'
+            , '**/*_MembersInjector.class'
+            , '**/Dagger*Component.class' // covers component implementations
+            , '**/Dagger*Subcomponent*.class'
+            , '**/Dagger*Component$Builder.class' // covers component builders
+            , '**/*Module_*Factory.class'
+            , '**/*_ViewBinding.class' // covers Butterknife injection
+            , '**/application/*' // covers application dagger
+            , '**/dagger/*' // covers dagger related
+            , '**/C.class'
+            , '**/C$*.*'
+    ]
+
+    def debugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
+}

@@ -1,4 +1,4 @@
-package com.fancylab.citylistdemo.dagger;
+package com.fancylab.citylistdemo.application.dagger;
 
 import com.fancylab.citylistdemo.api.CountryApi;
 
@@ -22,7 +22,6 @@ public class TestCitiesApiServicesModule{
 
     @TestScope
     @Provides
-    @Named("fake")
     public CountryApi provideFakeApiService(MockWebServer mockWebServer, OkHttpClient client, GsonConverterFactory gson, RxJavaCallAdapterFactory rxAdapter) {
         Retrofit retrofit = new Retrofit.Builder().client(client)
                 .baseUrl(mockWebServer.url("/")).addConverterFactory(gson).

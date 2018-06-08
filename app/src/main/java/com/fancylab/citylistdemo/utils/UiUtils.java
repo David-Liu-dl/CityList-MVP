@@ -10,13 +10,13 @@ import timber.log.Timber;
  * lyhmelbourne@gmail.com
  */
 
-public class UiUtils {
+public final class UiUtils {
 
     public static void handleThrowable(Throwable throwable) {
         Timber.e(throwable, throwable.toString());
     }
     public static void showSnackbar(View view, String message, int length) {
-        Snackbar.make(view, message, length).setAction("Action", null).show();
+        Snackbar.make(view, message, length).show();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.fancylab.citylistdemo.dagger;
+package com.fancylab.citylistdemo.application.dagger;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
