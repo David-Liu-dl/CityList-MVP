@@ -84,7 +84,7 @@ public class CountryModelImpTest {
                 .setBody(getJson(fileName)));
 
         TestSubscriber<Country> testSubscriber = new TestSubscriber<>();
-        Observable<Country> countryObservable = countryModelImp.getCountryInfo();
+        Observable<Country> countryObservable = countryModelImp.getCountryObservable();
 
         countryObservable.subscribe(testSubscriber);
 
@@ -103,7 +103,7 @@ public class CountryModelImpTest {
                 .setBody(getJson(fileName)));
 
         TestSubscriber<Country> testSubscriber = new TestSubscriber<>();
-        Observable<Country> countryObservable = countryModelImp.getCountryInfo();
+        Observable<Country> countryObservable = countryModelImp.getCountryObservable();
 
         countryObservable.subscribe(testSubscriber);
 

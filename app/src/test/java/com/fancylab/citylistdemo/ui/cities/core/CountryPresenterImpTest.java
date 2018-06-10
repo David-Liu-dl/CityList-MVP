@@ -1,5 +1,6 @@
 package com.fancylab.citylistdemo.ui.cities.core;
 
+import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.models.Country;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
@@ -10,14 +11,19 @@ import org.mockito.MockitoAnnotations;
 
 import java.net.HttpURLConnection;
 
-import javax.inject.Inject;
-
-import okhttp3.mockwebserver.MockWebServer;
 import retrofit2.HttpException;
 import rx.Observable;
+import rx.Subscriber;
+import rx.observers.TestObserver;
+import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
 import rx.subscriptions.CompositeSubscription;
 
+import static org.mockito.AdditionalMatchers.and;
+import static org.mockito.AdditionalMatchers.not;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,13 +35,17 @@ import static org.mockito.Mockito.when;
  */
 public class CountryPresenterImpTest {
     @Mock
-    CountryContract.CountryView view;
+    private CountryContract.CountryView view;
     @Mock
-    CountryContract.CountryModel model;
+    private CountryContract.CountryModel model;
     @Mock
-    RxScheduler rxScheduler;
+    private RxScheduler rxScheduler;
     @Mock
-    HttpException httpException;
+    private HttpException httpException;
+    @Mock
+    private City city;
+
+    private final Observable<Integer> itemClicks = Observable.just(1,2,3,4,5);
 
     private CompositeSubscription subscriptions = new CompositeSubscription();
     private TestScheduler testScheduler = new TestScheduler();
@@ -46,8 +56,15 @@ public class CountryPresenterImpTest {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        setupSchedulers();
+        subbing();
         countryPresenterImp = new CountryPresenterImp(view, model, rxScheduler, subscriptions);
+    }
+
+    private void subbing(){
+        setupSchedulers();
+        when(view.itemClicks()).thenReturn(itemClicks);
+        when(model.getCityObservableAtIndex(0)).thenReturn(Observable.just(null));
+        when(model.getCityObservableAtIndex(not(eq(0)))).thenReturn(Observable.just(city));
     }
 
     private void setupSchedulers(){
@@ -74,7 +91,7 @@ public class CountryPresenterImpTest {
         //noinspection unchecked
         when(model.isNetworkAvailable())
                 .thenReturn(Observable.just(true), Observable.just(true));
-        when(model.getCountryInfo()).thenReturn(Observable.just(countryInfo));
+        when(model.getCountryObservable()).thenReturn(Observable.just(countryInfo));
         countryPresenterImp.onCreate();
         testScheduler.triggerActions();
         verify(view, times(1)).displayCountry(countryInfo);
@@ -89,7 +106,7 @@ public class CountryPresenterImpTest {
                 .thenReturn(Observable.just(true), Observable.just(true));
         when(httpException.code()).thenReturn(HttpURLConnection.HTTP_UNAUTHORIZED);
         when(httpException.getMessage()).thenReturn(errorMsg);
-        when(model.getCountryInfo()).thenReturn(Observable.error(httpException));
+        when(model.getCountryObservable()).thenReturn(Observable.error(httpException));
 
         countryPresenterImp.onCreate();
         testScheduler.triggerActions();
@@ -107,7 +124,7 @@ public class CountryPresenterImpTest {
         when(httpException.code()).thenReturn(HttpURLConnection.HTTP_NOT_FOUND);
         when(httpException.getMessage()).thenReturn(errorMsg);
 
-        when(model.getCountryInfo()).thenReturn(Observable.error(httpException));
+        when(model.getCountryObservable()).thenReturn(Observable.error(httpException));
 
         countryPresenterImp.onCreate();
         testScheduler.triggerActions();
@@ -124,7 +141,7 @@ public class CountryPresenterImpTest {
                 .thenReturn(Observable.just(true), Observable.just(true));
         when(httpException.code()).thenReturn(HttpURLConnection.HTTP_UNAVAILABLE);
         when(httpException.getMessage()).thenReturn(errorMsg);
-        when(model.getCountryInfo()).thenReturn(Observable.error(httpException));
+        when(model.getCountryObservable()).thenReturn(Observable.error(httpException));
 
         countryPresenterImp.onCreate();
         testScheduler.triggerActions();
