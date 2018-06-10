@@ -1,6 +1,6 @@
 # CityList MVP
 
-An Android project demo with MVP design pattern to help you build a project fast and clean.
+An Android project demo with MVP architectural pattern to help you build a project which is clean and testable.
 
 The project has following features:
 
@@ -10,3 +10,19 @@ The project has following features:
 4. Simply implemented the screen adaptation and oritation rotation.
 5. Clear packaing and strcuture, easy to undertand and has a high maintainability.
 6. Including Unit Test and androidTest with various useful libraries. 
+7. Fully tested, including unitTest and androidTest
+
+## Jacoco Report:
+
+<img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/jacoco%20report.jpeg">
+
+(Note: Utils are tested with Powermock because it is more about static methods. Jacoco doesn't support Powermock so the coverage cannot be shown here.)
+
+## Unit Test Report:
+
+<img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/unit%20test.jpeg">
+
+## Instrumentation Test Report
+
+<img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/instrumentation%20test.jpeg">
+
