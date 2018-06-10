@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.application.AppApplication;
 import com.fancylab.citylistdemo.base.AppBaseActivity;
-import com.fancylab.citylistdemo.base.DaggerBaseActivity;
 import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.models.Country;
 import com.fancylab.citylistdemo.ui.cities.dagger.DaggerCountryComponent;
