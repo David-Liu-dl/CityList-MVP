@@ -15,6 +15,15 @@ public class City {
     @Expose
     private String imageHref = "";
 
+    public City() {
+    }
+
+    public City(String title, String description, String imageHref) {
+        this.title = title;
+        this.description = description;
+        this.imageHref = imageHref;
+    }
+
     public String getTitle() {
         return title;
     }

@@ -1,6 +1,9 @@
 package com.fancylab.citylistdemo.application.dagger;
 
 import com.fancylab.citylistdemo.api.CountryApi;
+import com.fancylab.citylistdemo.models.Country;
+
+import org.mockito.Mockito;
 
 import javax.inject.Named;
 
@@ -22,11 +25,7 @@ public class TestCitiesApiServicesModule{
 
     @TestScope
     @Provides
-    public CountryApi provideFakeApiService(MockWebServer mockWebServer, OkHttpClient client, GsonConverterFactory gson, RxJavaCallAdapterFactory rxAdapter) {
-        Retrofit retrofit = new Retrofit.Builder().client(client)
-                .baseUrl(mockWebServer.url("/")).addConverterFactory(gson).
-                        addCallAdapterFactory(rxAdapter).build();
-
-        return  retrofit.create(CountryApi.class);
+    public CountryApi provideFakeApiService(OkHttpClient client, GsonConverterFactory gson, RxJavaCallAdapterFactory rxAdapter) {
+        return Mockito.mock(CountryApi.class);
     }
 }

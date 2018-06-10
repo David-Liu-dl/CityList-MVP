@@ -26,20 +26,20 @@ public class SplashModule {
 
     @SplashScope
     @Provides
-    SplashContract.SplashPresenter providePresenter(RxScheduler schedulers, SplashContract.SplashView view, SplashContract.SplashModel model) {
+    public SplashContract.SplashPresenter providePresenter(RxScheduler schedulers, SplashContract.SplashView view, SplashContract.SplashModel model) {
         CompositeSubscription compositeSubscription = new CompositeSubscription();
         return new SplashPresenterImp(view, model, schedulers, compositeSubscription);
     }
 
     @SplashScope
     @Provides
-    SplashContract.SplashView provideSplashView() {
+    public SplashContract.SplashView provideSplashView() {
         return this.view;
     }
 
     @SplashScope
     @Provides
-    SplashContract.SplashModel provideSplashModel(SplashActivity context) {
+    public SplashContract.SplashModel provideSplashModel(SplashActivity context) {
         return new SplashModelImp(context);
     }
 }

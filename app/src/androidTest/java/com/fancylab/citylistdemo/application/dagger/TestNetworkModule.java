@@ -17,12 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class TestNetworkModule {
 
-    @TestScope
-    @Provides
-    public MockWebServer provideDefaultMockWebServer() {
-        return new MockWebServer();
-    }
-
     @Provides
     OkHttpClient provideHttpClient() {
         OkHttpClient.Builder builder = new OkHttpClient().newBuilder();

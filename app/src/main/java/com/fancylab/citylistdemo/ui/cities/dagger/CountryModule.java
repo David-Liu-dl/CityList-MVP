@@ -27,20 +27,20 @@ public class CountryModule {
 
     @CountryScope
     @Provides
-    CountryContract.CountryView provideView() {
+    public CountryContract.CountryView provideView() {
         return this.view;
     }
 
     @CountryScope
     @Provides
-    CountryContract.CountryPresenter providePresenter(RxScheduler schedulers, CountryContract.CountryView view, CountryContract.CountryModel model) {
+    public CountryContract.CountryPresenter providePresenter(RxScheduler schedulers, CountryContract.CountryView view, CountryContract.CountryModel model) {
         CompositeSubscription compositeSubscription = new CompositeSubscription();
         return new CountryPresenterImp(view, model, schedulers, compositeSubscription);
     }
 
     @CountryScope
     @Provides
-    CountryContract.CountryModel provideModel(CountryActivity context, CountryApi countryApi) {
+    public CountryContract.CountryModel provideModel(CountryActivity context, CountryApi countryApi) {
         return new CountryModelImp(context, countryApi);
     }
 }
