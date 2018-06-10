@@ -37,7 +37,8 @@ public class CountryModelImp implements CountryContract.CountryModel {
 
     @Override
     public Observable<Country> getCountryObservable() {
-        return countryApi.getCountry().doOnNext(country -> CountryModelImp.this.country = country);
+        return countryApi.getCountry().doOnNext(country ->
+                CountryModelImp.this.country = country);
     }
 
     @Override

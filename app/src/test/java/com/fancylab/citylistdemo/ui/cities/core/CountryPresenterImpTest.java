@@ -13,9 +13,6 @@ import java.net.HttpURLConnection;
 
 import retrofit2.HttpException;
 import rx.Observable;
-import rx.Subscriber;
-import rx.observers.TestObserver;
-import rx.observers.TestSubscriber;
 import rx.schedulers.TestScheduler;
 import rx.subscriptions.CompositeSubscription;
 
@@ -23,7 +20,6 @@ import static org.mockito.AdditionalMatchers.and;
 import static org.mockito.AdditionalMatchers.not;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -62,7 +58,7 @@ public class CountryPresenterImpTest {
 
     private void subbing(){
         setupSchedulers();
-        when(view.itemClicks()).thenReturn(itemClicks);
+        when(view.getItemClicks()).thenReturn(itemClicks);
         when(model.getCityObservableAtIndex(0)).thenReturn(Observable.just(null));
         when(model.getCityObservableAtIndex(not(eq(0)))).thenReturn(Observable.just(city));
     }

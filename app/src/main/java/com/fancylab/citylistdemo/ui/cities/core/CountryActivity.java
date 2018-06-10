@@ -119,7 +119,7 @@ public class CountryActivity extends AppBaseActivity
     }
 
     @Override
-    public Observable<Integer> itemClicks() {
+    public Observable<Integer> getItemClicks() {
         return adapter.observeClicks();
     }
 

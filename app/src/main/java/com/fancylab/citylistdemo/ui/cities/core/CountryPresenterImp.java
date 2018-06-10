@@ -6,8 +6,6 @@ import com.fancylab.citylistdemo.utils.UiUtils;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
 import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
 import rx.subscriptions.CompositeSubscription;
 
 /**
@@ -30,7 +28,7 @@ public class CountryPresenterImp extends BasePresenterImp
     @Override
     public void onCreate() {
         super.onCreate();
-        subscriptions.add(view.itemClicks().subscribe((Integer integer) ->
+        subscriptions.add(view.getItemClicks().subscribe((Integer integer) ->
                 model.getCityObservableAtIndex(integer)
                         .filter(city -> city != null)
                         .observeOn(rxSchedulers.androidThread())

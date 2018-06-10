@@ -17,7 +17,7 @@ public interface CountryContract {
 
     interface CountryView extends BaseView{
         void displayCountry(Country country);
-        Observable<Integer> itemClicks();
+        Observable<Integer> getItemClicks();
         void displayItemToast(City city);
         void onError(String msg);
     }

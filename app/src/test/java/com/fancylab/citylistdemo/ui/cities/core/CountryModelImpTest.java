@@ -2,6 +2,7 @@ package com.fancylab.citylistdemo.ui.cities.core;
 
 import com.fancylab.citylistdemo.api.CountryApi;
 import com.fancylab.citylistdemo.application.dagger.DaggerTestWebApiComponent;
+import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.models.Country;
 import com.fancylab.citylistdemo.utils.NetworkUtils;
 
@@ -34,6 +35,7 @@ import rx.observers.TestSubscriber;
 
 import static junit.framework.Assert.assertEquals;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.notNull;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
 import static org.powermock.api.mockito.PowerMockito.when;
 
@@ -120,6 +122,41 @@ public class CountryModelImpTest {
 
         assertEquals(true, result.getTitle() == null || result.getTitle().equals(""));
         assertEquals(0, result.getCities().size());
+    }
+
+    @Test
+    public void returnNullObservable_when_countryIsNull() throws Exception{
+        Observable<City> observable = countryModelImp.getCityObservableAtIndex(0);
+        TestSubscriber<City> testSubscriber = new TestSubscriber<>();
+
+        observable.subscribe(testSubscriber);
+
+        testSubscriber.assertValue(null);
+    }
+
+    @Test
+    public void returnNonNullObservable_when_countryIsNull() throws Exception{
+        String fileName = "country.json";
+
+        mockWebServer.enqueue(new MockResponse()
+                .setResponseCode(200)
+                .setBody(getJson(fileName)));
+
+        TestSubscriber<Country> testSubscriberCountry = new TestSubscriber<>();
+        countryModelImp.getCountryObservable().subscribe(testSubscriberCountry);
+        testSubscriberCountry.awaitTerminalEvent();
+
+        Observable<City> observable = countryModelImp.getCityObservableAtIndex(0);
+        TestSubscriber<City> testSubscriberCity = new TestSubscriber<>();
+        observable.subscribe(testSubscriberCity);
+        testSubscriberCity.awaitTerminalEvent();
+
+        testSubscriberCity.assertValue(
+                testSubscriberCountry
+                        .getOnNextEvents()
+                        .get(0)
+                        .getCities()
+                        .get(0));
     }
 
     @Test

@@ -52,6 +52,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.fancylab.citylistdemo.MatcherUtil.isRefreshing;
+import static com.fancylab.citylistdemo.MatcherUtil.withCity;
+import static com.fancylab.citylistdemo.MatcherUtil.withToast;
 import static com.fancylab.citylistdemo.ViewAssertionsUtil.hasHolderItemAtPosition;
 import static com.fancylab.citylistdemo.ViewAssertionsUtil.hasItemsCount;
 import static org.hamcrest.CoreMatchers.not;
@@ -171,7 +173,7 @@ public class CountryActivityTest {
                 .check(hasItemsCount(2));
         // check item display correctly
         onView(withId(R.id.cities_list_recyclerview))
-                .check(hasHolderItemAtPosition(0, new CityViewHolderMatcher(CITY)));
+                .check(hasHolderItemAtPosition(0, withCity(CITY)));
     }
 
     @Test
@@ -213,6 +215,14 @@ public class CountryActivityTest {
     }
 
     @Test
+    public void showCityToast_when_itemClick(){
+        countryActivityActivityTestRule.getActivity().runOnUiThread(() -> countryActivityActivityTestRule.getActivity().displayItemToast(CITY));
+        onView(withText(context.getString(R.string.toast_city_title, CITY_TITLE)))
+                .inRoot(withToast())
+                .check(matches(isDisplayed()));
+    }
+
+    @Test
     public void hideRefreshingView_when_pullDownSwipeRefreshLayoutThenDisplayCountry(){
         doNothing().when(countryPresenter).getCountryInfo();
 
@@ -237,34 +247,4 @@ public class CountryActivityTest {
         Assert.assertNotNull(countryView.getView());
     }
 
-    private class CityViewHolderMatcher extends TypeSafeMatcher<RecyclerView.ViewHolder> {
-
-        private final String title;
-        private final String imageHref;
-        private final String description;
-
-        CityViewHolderMatcher(City city){
-            this.title = city.getTitle();
-            this.imageHref = city.getImageHref();
-            this.description = city.getDescription();
-        }
-
-        @Override
-        protected boolean matchesSafely(RecyclerView.ViewHolder item) {
-            final View itemView = item.itemView;
-
-            TextView cityTitleTv = itemView.findViewById(R.id.city_title);
-            ImageView cityImageIv = itemView.findViewById(R.id.city_image);
-            TextView cityDescriptionTv = itemView.findViewById(R.id.city_description);
-
-            return TextUtils.equals(cityTitleTv.getText(), title)
-                    && TextUtils.equals(cityDescriptionTv.getText(), description)
-                    && (cityImageIv.getDrawable() != null);
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("with title: " + title + " imageHref: " + imageHref + " description: " + description);
-        }
-    }
 }
