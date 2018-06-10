@@ -1,5 +1,6 @@
 package com.fancylab.citylistdemo.ui.cities.core;
 
+import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.ui.base.BasePresenterImp;
 import com.fancylab.citylistdemo.utils.UiUtils;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
@@ -25,8 +26,19 @@ public class CountryPresenterImp extends BasePresenterImp
     }
 
     @Override
+    public void onCreate() {
+        super.onCreate();
+        subscriptions.add(view.getItemClicks().subscribe((Integer integer) ->
+                model.getCityObservableAtIndex(integer)
+                        .filter(city -> city != null)
+                        .observeOn(rxSchedulers.androidThread())
+                        .subscribeOn(rxSchedulers.io())
+                        .subscribe((City city) -> view.displayItemToast(city))));
+    }
+
+    @Override
     public void onStart() {
-        getCountryInfo();
+        this.getCountryInfo();
     }
 
     @Override
@@ -37,7 +49,7 @@ public class CountryPresenterImp extends BasePresenterImp
                 view.showSnackNetworkAvailabilityMessage(networkAvailable);
             }})
                 .filter(isNetworkAvailable -> true)
-                .flatMap(isAvailable -> model.getCountryInfo())
+                .flatMap(isAvailable -> model.getCountryObservable())
                 .subscribeOn(rxSchedulers.internet())
                 .observeOn(rxSchedulers.androidThread())
                 .subscribe(country -> view.displayCountry(country), (Throwable throwable) -> {

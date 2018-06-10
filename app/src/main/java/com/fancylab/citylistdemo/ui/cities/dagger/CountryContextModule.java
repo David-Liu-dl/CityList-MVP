@@ -21,7 +21,7 @@ public class CountryContextModule {
 
     @CountryScope
     @Provides
-    CountryActivity provideCountryContext() {
+    public CountryActivity provideCountryContext() {
         return context;
     }
 }

@@ -1,5 +1,6 @@
 package com.fancylab.citylistdemo.ui.cities.core;
 
+import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.models.Country;
 import com.fancylab.citylistdemo.ui.base.BaseModel;
 import com.fancylab.citylistdemo.ui.base.BasePresenter;
@@ -16,6 +17,8 @@ public interface CountryContract {
 
     interface CountryView extends BaseView{
         void displayCountry(Country country);
+        Observable<Integer> getItemClicks();
+        void displayItemToast(City city);
         void onError(String msg);
     }
 
@@ -24,7 +27,8 @@ public interface CountryContract {
     }
 
     interface CountryModel extends BaseModel{
-        Observable<Country> getCountryInfo();
+        Observable<Country> getCountryObservable();
+        Observable<City> getCityObservableAtIndex(int index);
     }
 
 }

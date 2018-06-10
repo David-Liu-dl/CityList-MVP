@@ -7,11 +7,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
 
 import com.fancylab.citylistdemo.R;
 import com.fancylab.citylistdemo.application.AppApplication;
 import com.fancylab.citylistdemo.base.AppBaseActivity;
-import com.fancylab.citylistdemo.base.DaggerBaseActivity;
+import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.models.Country;
 import com.fancylab.citylistdemo.ui.cities.dagger.DaggerCountryComponent;
 import com.fancylab.citylistdemo.ui.cities.list.CitiesAdapter;
@@ -22,6 +23,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Observable;
 
 /**
  * Created by David Liu on 15/5/18.
@@ -105,6 +107,19 @@ public class CountryActivity extends AppBaseActivity
 
         toolbar.setTitle(country.getTitle());
         adapter.refresh(country.getCities());
+    }
+
+    @Override
+    public void displayItemToast(City city) {
+        Toast.makeText(this
+                , getString(R.string.toast_city_title, city.getTitle())
+                , Toast.LENGTH_LONG)
+                .show();
+    }
+
+    @Override
+    public Observable<Integer> getItemClicks() {
+        return adapter.observeClicks();
     }
 
     @Override

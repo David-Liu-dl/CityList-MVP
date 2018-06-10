@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">CityListDemo</string>
 
-    <!-- splash activity -->
     <string name="splash_welcome_message">Welcome to fancy lab!</string>
     <string name="message_network_unavailable">Unavailable Network</string>
     <string name="message_network_available">Available Network</string>
     <string name="content_description_country_image">City Image</string>
+
+    <string name="toast_city_title">You clicked %1$s</string>
 </resources>

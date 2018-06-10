@@ -20,6 +20,14 @@ public class Country implements Serializable{
     @SerializedName("rows")
     private List<City> cities;
 
+    public Country() {
+    }
+
+    public Country(String title, List<City> cities) {
+        this.title = title;
+        this.cities = cities;
+    }
+
     public String getTitle() {
         return title;
     }

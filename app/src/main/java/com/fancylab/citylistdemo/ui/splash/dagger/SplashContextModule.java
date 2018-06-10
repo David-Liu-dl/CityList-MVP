@@ -21,7 +21,7 @@ public class SplashContextModule {
 
     @SplashScope
     @Provides
-    SplashActivity provideSplashContext() {
+    public SplashActivity provideSplashContext() {
         return splashContext;
     }
 }

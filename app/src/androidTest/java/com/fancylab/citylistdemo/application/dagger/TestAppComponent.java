@@ -2,12 +2,9 @@ package com.fancylab.citylistdemo.application.dagger;
 
 import com.fancylab.citylistdemo.api.CountryApi;
 import com.fancylab.citylistdemo.application.InjectionHelper;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashActivityTest;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashContextModule;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashModule;
+import com.fancylab.citylistdemo.ui.cities.core.CountryActivityTest;
+import com.fancylab.citylistdemo.ui.splash.core.SplashActivityTest;
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
-
-import javax.inject.Named;
 
 import dagger.Component;
 
@@ -27,4 +24,5 @@ public interface TestAppComponent extends AppComponentBase {
     InjectionHelper injectionHelper();
 
     void inject(SplashActivityTest splashActivityTest);
+    void inject(CountryActivityTest countryActivityTest);
 }

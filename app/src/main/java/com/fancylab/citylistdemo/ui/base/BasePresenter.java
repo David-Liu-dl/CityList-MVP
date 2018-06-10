@@ -23,11 +23,7 @@ public interface BasePresenter {
 
     /**
      * Called when view is destroyed
-<<<<<<< HEAD
-     * in {@link BaseActivity#onDestroy()}.
-=======
-     * in in {@link DaggerBaseActivity#onDestroy()}.
->>>>>>> dev
+     * in {@link DaggerBaseActivity#onDestroy()}.
      */
     void onDestroy();
 }
