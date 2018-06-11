@@ -28,7 +28,7 @@ The project has following features:
 
 <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/instrumentation%20test.jpeg">
 
-## App Packaging Strategy
+## Packaging Strategy
 
 <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/app%20package%20strategy.jpeg" height="400px"> 
 
