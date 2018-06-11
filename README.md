@@ -28,18 +28,13 @@ The project has following features:
 
 <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/instrumentation%20test.jpeg">
 
-## Packaging Stragegy
+## App Packaging Stragegy
 
-| App | Resources|
-| --- | ------ |
-| <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/app%20package%20strategy.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/res%20management%20strategy.jpeg">
-
-| unitTest | androidTest|
-| --- | ------ |
-| <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/unitTest%20package%20strategy.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/androidTest%20package%20strategy.jpeg">
+<img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/app%20package%20strategy.jpeg" height="400px"> 
 
 ## Dependency
 
 | unitTest | androidTest| annotation
 | --- | --- | --- |
 | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/unitTest%20dependency.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/androidTest%20dependenct.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/test%20annotation%20dependency.jpeg">
+
