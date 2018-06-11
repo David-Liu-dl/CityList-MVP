@@ -12,17 +12,34 @@ The project has following features:
 6. Including Unit Test and androidTest with various useful libraries. 
 7. Fully tested, including unitTest and androidTest
 
-## Jacoco Report:
+## Jacoco Report
+
+### Summary:
 
 <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/jacoco%20report.jpeg">
 
 (Note: Utils are tested with Powermock because it is more about static methods. Jacoco doesn't support Powermock so the coverage cannot be shown here.)
 
-## Unit Test Report:
+### Unit Test Report:
 
 <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/unit%20test.jpeg">
 
-## Instrumentation Test Report
+### Instrumentation Test Report
 
 <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/instrumentation%20test.jpeg">
 
+## Packaging Stragegy
+
+| App | Resources|
+| --- | ------ |
+| <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/app%20package%20strategy.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/res%20management%20strategy.jpeg">
+
+| unitTest | androidTest|
+| --- | ------ |
+| <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/unitTest%20package%20strategy.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/androidTest%20package%20strategy.jpeg">
+
+## Dependency
+
+| unitTest | androidTest| annotation
+| --- | --- | --- |
+| <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/unitTest%20dependency.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/androidTest%20dependenct.jpeg"> | <img src="https://github.com/DavidFancy/CityList-MVP/blob/master/report/test%20annotation%20dependency.jpeg">
