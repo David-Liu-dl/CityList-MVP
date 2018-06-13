@@ -12,7 +12,11 @@ import com.fancylab.citylistdemo.models.City;
 import java.util.ArrayList;
 import java.util.List;
 
+import rx.Completable;
+import rx.CompletableSubscriber;
 import rx.Observable;
+import rx.Single;
+import rx.Subscription;
 import rx.subjects.PublishSubject;
 
 /**
