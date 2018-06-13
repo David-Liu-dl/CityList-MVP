@@ -2,7 +2,6 @@ package com.fancylab.citylistdemo.ui.splash.core;
 
 import com.fancylab.citylistdemo.utils.rx.RxScheduler;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
