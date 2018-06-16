@@ -3,16 +3,12 @@ package com.fancylab.citylistdemo.ui.splash.core;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.fancylab.citylistdemo.R;
-import com.fancylab.citylistdemo.application.AppApplication;
 import com.fancylab.citylistdemo.base.AppBaseActivity;
-import com.fancylab.citylistdemo.base.DaggerBaseActivity;
 import com.fancylab.citylistdemo.base.C;
 import com.fancylab.citylistdemo.ui.cities.core.CountryActivity;
-import com.fancylab.citylistdemo.ui.splash.dagger.DaggerSplashComponent;
 import com.fancylab.citylistdemo.utils.UiUtils;
 
 import java.io.Serializable;
@@ -46,12 +42,8 @@ public class SplashActivity extends AppBaseActivity
 
     @Override
     protected void setupDaggerComponent() {
-        DaggerSplashComponent
-                .builder()
-                .appComponentBase(AppApplication.get(this).getAppComponent())
-                .splashContextModule(injectionHelper.getSplashContextModule(this))
-                .splashModule(injectionHelper.getSplashModule(this))
-                .build()
+        getAppApplication()
+                .getSplashComponent(this, this)
                 .inject(this);
     }
 

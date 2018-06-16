@@ -8,6 +8,9 @@ import dagger.Component;
  */
 
 @AppScope
-@Component(modules = {NetworkModule.class, AppContextModule.class, RxModule.class, CitiesApiServiceModule.class, InjectionHelperModule.class})
-public interface AppComponent extends AppComponentBase {
+@Component(modules = {NetworkModule.class
+        , AppContextModule.class
+        , RxModule.class
+        , CitiesApiServiceModule.class})
+interface AppComponent extends AppComponentBase {
 }

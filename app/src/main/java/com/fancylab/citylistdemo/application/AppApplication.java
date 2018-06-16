@@ -6,6 +6,18 @@ import android.content.Context;
 import com.fancylab.citylistdemo.application.dagger.AppComponentBase;
 import com.fancylab.citylistdemo.application.dagger.AppContextModule;
 import com.fancylab.citylistdemo.application.dagger.DaggerAppComponent;
+import com.fancylab.citylistdemo.ui.cities.core.CountryActivity;
+import com.fancylab.citylistdemo.ui.cities.core.CountryContract;
+import com.fancylab.citylistdemo.ui.cities.dagger.CountryActivityModule;
+import com.fancylab.citylistdemo.ui.cities.dagger.CountryComponent;
+import com.fancylab.citylistdemo.ui.cities.dagger.CountryViewModule;
+import com.fancylab.citylistdemo.ui.cities.dagger.DaggerCountryComponent;
+import com.fancylab.citylistdemo.ui.splash.core.SplashActivity;
+import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
+import com.fancylab.citylistdemo.ui.splash.dagger.DaggerSplashComponent;
+import com.fancylab.citylistdemo.ui.splash.dagger.SplashActivityModule;
+import com.fancylab.citylistdemo.ui.splash.dagger.SplashComponent;
+import com.fancylab.citylistdemo.ui.splash.dagger.SplashViewModule;
 import com.squareup.leakcanary.LeakCanary;
 
 import timber.log.BuildConfig;
@@ -63,6 +75,24 @@ public class AppApplication extends Application {
 
     public static AppApplication get(Context context) {
         return (AppApplication) context.getApplicationContext();
+    }
+
+    public SplashComponent getSplashComponent(SplashActivity splashActivity, SplashContract.SplashView splashView){
+        return DaggerSplashComponent
+                .builder()
+                .appComponentBase(getAppComponent())
+                .splashActivityModule(new SplashActivityModule(splashActivity))
+                .splashViewModule(new SplashViewModule(splashView))
+                .build();
+    }
+
+    public CountryComponent getCountryComponent(CountryActivity countryActivity, CountryContract.CountryView countryView){
+        return DaggerCountryComponent
+                .builder()
+                .appComponentBase(getAppComponent())
+                .countryActivityModule(new CountryActivityModule(countryActivity))
+                .countryViewModule(new CountryViewModule(countryView))
+                .build();
     }
 
 }

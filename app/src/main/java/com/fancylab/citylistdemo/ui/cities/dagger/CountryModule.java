@@ -19,18 +19,6 @@ import rx.subscriptions.CompositeSubscription;
 @Module
 public class CountryModule {
 
-    private final CountryContract.CountryView view;
-
-    public CountryModule(CountryContract.CountryView view){
-        this.view = view;
-    }
-
-    @CountryScope
-    @Provides
-    public CountryContract.CountryView provideView() {
-        return this.view;
-    }
-
     @CountryScope
     @Provides
     public CountryContract.CountryPresenter providePresenter(RxScheduler schedulers, CountryContract.CountryView view, CountryContract.CountryModel model) {
@@ -43,4 +31,5 @@ public class CountryModule {
     public CountryContract.CountryModel provideModel(CountryActivity context, CountryApi countryApi) {
         return new CountryModelImp(context, countryApi);
     }
+
 }

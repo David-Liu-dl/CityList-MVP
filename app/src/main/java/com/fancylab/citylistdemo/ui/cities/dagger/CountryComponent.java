@@ -11,7 +11,7 @@ import dagger.Component;
  */
 
 @CountryScope
-@Component(modules = {CountryContextModule.class, CountryModule.class}, dependencies = {AppComponentBase.class})
+@Component(modules = {CountryActivityModule.class, CountryViewModule.class, CountryModule.class}, dependencies = {AppComponentBase.class})
 public interface CountryComponent {
     void inject(CountryActivity activity);
 }

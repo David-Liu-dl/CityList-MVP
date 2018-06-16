@@ -11,11 +11,11 @@ import dagger.Provides;
  */
 
 @Module
-public class CountryContextModule {
+public class CountryActivityModule {
 
     private CountryActivity context;
 
-    public CountryContextModule(CountryActivity context) {
+    public CountryActivityModule(CountryActivity context) {
         this.context = context;
     }
 

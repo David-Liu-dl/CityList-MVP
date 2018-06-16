@@ -8,23 +8,13 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.intent.Intents;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.fancylab.citylistdemo.R;
-import com.fancylab.citylistdemo.application.InjectionHelper;
 import com.fancylab.citylistdemo.application.TestAppApplication;
-import com.fancylab.citylistdemo.application.dagger.TestAppComponent;
 import com.fancylab.citylistdemo.models.City;
 import com.fancylab.citylistdemo.models.Country;
-import com.fancylab.citylistdemo.ui.cities.dagger.CountryContextModule;
-import com.fancylab.citylistdemo.ui.cities.dagger.CountryModule;
+import com.fancylab.citylistdemo.ui.cities.dagger.TestCountryModule;
 
-import org.hamcrest.Description;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -39,8 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
-import javax.inject.Inject;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.swipeDown;
@@ -58,9 +46,7 @@ import static com.fancylab.citylistdemo.ViewAssertionsUtil.hasHolderItemAtPositi
 import static com.fancylab.citylistdemo.ViewAssertionsUtil.hasItemsCount;
 import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.Matchers.allOf;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -88,16 +74,11 @@ public class CountryActivityTest {
     @Rule
     public GrantPermissionRule internetPermissionRule = GrantPermissionRule.grant(Manifest.permission.INTERNET);
 
-    @Inject
-    InjectionHelper injectionHelper;
-
     @Mock
     private CountryContract.CountryPresenter countryPresenter;
 
     private Context context;
 
-    private CountryModule countryModule;
-    private CountryContextModule countryContextModule;
     private CountryContract.CountryView countryView;
 
     @Before
@@ -107,11 +88,10 @@ public class CountryActivityTest {
                 .getTargetContext()
                 .getApplicationContext();
         TestAppApplication app = (TestAppApplication) context;
-        TestAppComponent component = (TestAppComponent) app.getAppComponent();
-        component.inject(this);
+        app.setTestCountryModule(new TestCountryModule(countryPresenter));
 
         Intents.init();
-        Mockito.reset(injectionHelper, countryPresenter);
+        Mockito.reset(countryPresenter);
 
         stubbing();
         countryActivityActivityTestRule.launchActivity(new Intent());
@@ -124,19 +104,6 @@ public class CountryActivityTest {
     }
 
     private void stubbing(){
-        when(injectionHelper.getCountryModule(any())).thenAnswer(invocation -> {
-            // create mock Module with real view
-            countryModule = spy(new CountryModule(invocation.getArgument(0)));
-            when(countryModule.providePresenter(any(), any(), any())).thenReturn(countryPresenter);
-            return countryModule;
-        });
-
-        when(injectionHelper.getCountryContextModule(any())).thenAnswer(invocation -> {
-            // create mock Module with real view
-            countryContextModule = spy(new CountryContextModule(invocation.getArgument(0)));
-            return countryContextModule;
-        });
-
         doNothing().when(countryPresenter).onCreate();
         doNothing().when(countryPresenter).onDestroy();
     }

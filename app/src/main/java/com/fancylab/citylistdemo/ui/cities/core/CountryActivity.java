@@ -77,12 +77,8 @@ public class CountryActivity extends AppBaseActivity
 
     @Override
     protected void setupDaggerComponent() {
-        DaggerCountryComponent
-                .builder()
-                .appComponentBase(AppApplication.get(this).getAppComponent())
-                .countryContextModule(injectionHelper.getCountryContextModule(this))
-                .countryModule(injectionHelper.getCountryModule(this))
-                .build()
+        getAppApplication()
+                .getCountryComponent(this, this)
                 .inject(this);
     }
 

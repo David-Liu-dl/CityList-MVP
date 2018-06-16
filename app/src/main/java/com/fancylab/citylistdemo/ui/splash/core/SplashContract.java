@@ -1,7 +1,5 @@
 package com.fancylab.citylistdemo.ui.splash.core;
 
-import android.content.Intent;
-
 import com.fancylab.citylistdemo.ui.base.BaseModel;
 import com.fancylab.citylistdemo.ui.base.BasePresenter;
 import com.fancylab.citylistdemo.ui.base.BaseView;

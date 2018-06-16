@@ -18,12 +18,6 @@ import rx.subscriptions.CompositeSubscription;
 @Module
 public class SplashModule {
 
-    private final SplashContract.SplashView view;
-
-    public SplashModule(SplashContract.SplashView view) {
-        this.view = view;
-    }
-
     @SplashScope
     @Provides
     public SplashContract.SplashPresenter providePresenter(RxScheduler schedulers, SplashContract.SplashView view, SplashContract.SplashModel model) {
@@ -33,13 +27,8 @@ public class SplashModule {
 
     @SplashScope
     @Provides
-    public SplashContract.SplashView provideSplashView() {
-        return this.view;
-    }
-
-    @SplashScope
-    @Provides
     public SplashContract.SplashModel provideSplashModel(SplashActivity context) {
         return new SplashModelImp(context);
     }
+
 }

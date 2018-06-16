@@ -14,15 +14,10 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 
 import com.fancylab.citylistdemo.R;
-import com.fancylab.citylistdemo.application.InjectionHelper;
 import com.fancylab.citylistdemo.application.TestAppApplication;
-import com.fancylab.citylistdemo.application.dagger.TestAppComponent;
 import com.fancylab.citylistdemo.base.C;
 import com.fancylab.citylistdemo.ui.cities.core.CountryActivity;
-import com.fancylab.citylistdemo.ui.splash.core.SplashActivity;
-import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashContextModule;
-import com.fancylab.citylistdemo.ui.splash.dagger.SplashModule;
+import com.fancylab.citylistdemo.ui.splash.dagger.TestSplashModule;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -36,14 +31,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.io.Serializable;
 
-import javax.inject.Inject;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.intent.Intents.intended;
 import static android.support.test.espresso.intent.Intents.intending;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasComponent;
-import static android.support.test.espresso.intent.matcher.IntentMatchers.hasData;
 import static android.support.test.espresso.intent.matcher.IntentMatchers.hasExtra;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isCompletelyDisplayed;
@@ -53,11 +45,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.withEffectiveVi
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.allOf;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by David Liu on 7/6/18.
@@ -72,16 +61,10 @@ public class SplashActivityTest {
     @Rule
     public GrantPermissionRule internetPermissionRule = GrantPermissionRule.grant(Manifest.permission.INTERNET);
 
-    @Inject
-    InjectionHelper injectionHelper;
-
     @Mock
-    private SplashContract.SplashPresenter splashPresenter;
+    SplashContract.SplashPresenter splashPresenter;
 
     private Context context;
-
-    private SplashModule splashModule;
-    private SplashContextModule splashContextModule;
     private SplashContract.SplashView splashView;
 
     @Before
@@ -90,16 +73,17 @@ public class SplashActivityTest {
                 .getInstrumentation()
                 .getTargetContext()
                 .getApplicationContext();
+
         TestAppApplication app = (TestAppApplication) context;
-        TestAppComponent component = (TestAppComponent) app.getAppComponent();
-        component.inject(this);
+        app.setTestSplashModule(new TestSplashModule(splashPresenter));
 
         Intents.init();
-        Mockito.reset(injectionHelper, splashPresenter);
+        Mockito.reset(splashPresenter);
 
         stubbing();
         splashActivityActivityTestRule.launchActivity(new Intent());
         splashView = splashActivityActivityTestRule.getActivity();
+
     }
 
     @After
@@ -108,19 +92,6 @@ public class SplashActivityTest {
     }
 
     private void stubbing(){
-        when(injectionHelper.getSplashModule(any())).thenAnswer(invocation -> {
-            // create mock Module with real view
-            splashModule = spy(new SplashModule(invocation.getArgument(0)));
-            when(splashModule.providePresenter(any(), any(), any())).thenReturn(splashPresenter);
-            return splashModule;
-        });
-
-        when(injectionHelper.getSplashContextModule(any())).thenAnswer(invocation -> {
-            // create mock Module with real view
-            splashContextModule = spy(new SplashContextModule(invocation.getArgument(0)));
-            return splashContextModule;
-        });
-
         doNothing().when(splashPresenter).onCreate();
         doNothing().when(splashPresenter).onDestroy();
     }

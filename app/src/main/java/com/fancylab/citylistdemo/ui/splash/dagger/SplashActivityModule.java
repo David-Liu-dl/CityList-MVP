@@ -1,6 +1,7 @@
 package com.fancylab.citylistdemo.ui.splash.dagger;
 
 import com.fancylab.citylistdemo.ui.splash.core.SplashActivity;
+import com.fancylab.citylistdemo.ui.splash.core.SplashContract;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,11 +12,11 @@ import dagger.Provides;
  */
 
 @Module
-public class SplashContextModule {
+public class SplashActivityModule {
 
     private SplashActivity splashContext;
 
-    public SplashContextModule(SplashActivity context) {
+    public SplashActivityModule(SplashActivity context) {
         this.splashContext = context;
     }
 
@@ -24,4 +25,5 @@ public class SplashContextModule {
     public SplashActivity provideSplashContext() {
         return splashContext;
     }
+
 }
